@@ -5,21 +5,6 @@
 **A flutter plugin for adapting screen and font size.Let your UI display a reasonable layout on different screen sizes!**
 
 ## Usage:
-
-### Get the Google Translation Api key:
-- First you will need to start a project in [Google Cloud Platform](https://console.cloud.google.com/)
-
-- Then Enable **Google Cloud Translation API**
-  ![Enable Google Cloud Translation API…](img/first.png "Enable Google Cloud Translation API…")
-
-- Create a credentials key for your account..
-
-  Navigate to the API Manager section of your project dashboard,
-  ![Create Credentials…](img/second.png "Create Credentials…")
-
-  In the drop down menu, select **API key**:
-  ![API Key…](img/third.png "API Key…")
-
 ### Add dependency：
 Please check the latest version before installation.
 If there is any problem with the new version, please use the previous version
@@ -37,25 +22,43 @@ import 'package:universal_translator/universal_translator.dart';
 ```
 
 ## Getting Started
-First, you will need to send the API Key, allong with a few default parameters described bellow, before the calling of the translate function (we recomend to do as in the example):
+First, you will need to send the path, heades, body example and response example, allong with a few default parameters described bellow, before the calling of the translate function (we recomend to do as in the example):
 ```dart
 void main() {
-    /// Required to make the `GoogleTranslatorInit` call before the `MaterialApp`
+    /// Required to make the `UniversalTranslatorInit` call before the `MaterialApp`
     WidgetsFlutterBinding.ensureInitialized();
     runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
 
-  final String apiKey = "YOUR_GCP_API_KEY";
+  String path = "https://nlp-translation.p.rapidapi.com/v1/translate";
+  Map<String,dynamic> headers = { "x-rapidapi-key": "MY_API_KEY" }
+
+  String responsePattern(Response response) {
+    if (response.statusCode == 200 && response.data['status'] == 200) {
+      dynamic data = response.data;
+      return data["translated_text"][data["to"]];
+    }
+    return null;
+  }
+
+  Map<String,dynamic> bodyPattern(String text, Locale to) => {
+    "text": text,
+    "to": to.toLanguageTag(),
+    "from": "pt"
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GoogleTranslatorInit(apiKey,
-      translateFrom: Locale('pt-br'),
+    return UniversalTranslatorInit(path,
+      headers: headers,
+      method: HttpMethod.get,
+      responsePattern: responsePattern,
+      bodyPattern: bodyPattern,
       translateTo: Locale('en'),
-      // automaticDetection: , In case you don't know the user language will want to traslate,
-      // cacheDuration: Duration(days: 13), The duration of the cache translation.
+      // automaticDetection: , In case you don't know the user language
+      cacheDuration: Duration(days: 13),
       builder: () => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -86,20 +89,9 @@ Scaffold(
     ),
 );
 ```
-
-## Todo:
-- [ ] Add extension to `RichText`;
-- [ ] Add extension to `CupertinoTextField`;
-- [ ] Add extension to `CupertinoSearchTextField`;
-- [ ] Add extension to `CupertinoSearchTextField`;
-- [ ] Add extension to `TextField`;
-- [x] Add extension to `Tooltip`;
-- [x] Add extension to `SelectableText`.
-- [ ] Migrate `dio_http_cache` dependency to a safer one (expecting creators to add null-safety on https://pub.dev/)
-
 ## Disclaimer
 
-This package works with cache data [dio_http_cache](https://pub.dev/packages/dio_http_cache), that, by default last's 7 days, but can be change in the `GoogleTranslatorInit` > `cacheDuration` parameter.
+This package works with cache data [dio_http_cache](https://pub.dev/packages/dio_http_cache), that, by default last's 7 days, but can be change in the `UniversalTranslatorInit` > `cacheDuration` parameter.
 
 ## Issues
 

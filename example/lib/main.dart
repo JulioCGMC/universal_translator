@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:universal_translator/universal_translator.dart';
+import 'package:dio/dio.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,23 +13,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UniversalTranslatorInit("https://nlp-translation.p.rapidapi.com/v1/translate",
-      headers: {
-        "x-rapidapi-key": "MY_API_KEY"
-      },
+    String path = "https://nlp-translation.p.rapidapi.com/v1/translate";
+    Map<String,dynamic> headers = { "x-rapidapi-key": "MY_API_KEY" };
+
+    String responsePattern(Response response) {
+      if (response.statusCode == 200 && response.data['status'] == 200) {
+        dynamic data = response.data;
+        return data["translated_text"][data["to"]];
+      }
+      return null;
+    }
+
+    Map<String,dynamic> bodyPattern(String text, Locale to) => {
+      "text": text,
+      "to": to.toLanguageTag(),
+      "from": "pt"
+    };
+
+    return UniversalTranslatorInit(path,
+      headers: headers,
       method: HttpMethod.get,
-      responsePattern: (response) {
-        if (response.statusCode == 200 && response.data['status'] == 200) {
-          dynamic data = response.data;
-          return data["translated_text"][data["to"]];
-        }
-        return null;
-      },
-      bodyPattern: (text, to) => {
-        "text": text,
-        "to": to.toLanguageTag(),
-        "from": "pt"
-      },
+      bodyPattern: bodyPattern,
+      responsePattern: responsePattern,
       translateTo: Locale('en'),
       cacheDuration: Duration(days: 13),
       // automaticDetection: , In case you don't know the user language
