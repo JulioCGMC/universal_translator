@@ -4,12 +4,13 @@ extension TranslateSelectableText on SelectableText {
   /// Translate the text to the defined language using
   /// the `universal_translator` package using the `FutureBuilder` widget.
   ///
+  /// If the [usePlaceholder] arguments is false then it will show the original while awaits.
   /// If the [placeholder] arguments is null then it will show three dots.
-  Widget translate([String placeholder]) {
+  Widget translate([bool usePlaceholder = false, String placeholder = "..."]) {
     String data;
     String splitKeyWord;
     if (this.textSpan != null) {
-      splitKeyWord = "|_|";
+      splitKeyWord = "(}[";
       data = getTextsFromSpan(this.textSpan).join(splitKeyWord);
     }
     else {
@@ -18,7 +19,8 @@ extension TranslateSelectableText on SelectableText {
     return FutureBuilder<String>(
         future: UniversalTranslatorController().translateText(data ?? ""),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          String response = placeholder ?? "...";
+          String response = (usePlaceholder ? placeholder 
+            : this.data).replaceAll(splitKeyWord, "");
           if (snapshot.hasData) {
             response = snapshot.data ?? this.data;
           }

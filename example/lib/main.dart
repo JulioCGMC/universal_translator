@@ -1,8 +1,7 @@
-import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_translator/universal_translator.dart';
-import 'package:dio/dio.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: Text(widget.title ?? "").translate(),
+      title: Text(widget.title ?? "").translate(true),
       ),
       body: Center(
         child: Column(
@@ -106,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]
               ), 
               textAlign: TextAlign.center
-            ).translate("Place to Holder")
+            ).translate(true, "Place to Holder")
           ]
         ),
       ),
