@@ -10,6 +10,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+part 'functions/functions.dart';
 part 'enum/http_method.dart';
 part 'repositories/universal_translator_repository.dart';
 part 'controllers/universal_translator_controller.dart';

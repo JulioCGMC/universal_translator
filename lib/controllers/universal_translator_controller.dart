@@ -47,8 +47,12 @@ class UniversalTranslatorController {
     return Locale("en");
   }
 
-  Future<String> translateText(String text) async =>
-      _translatorRepository.translate(
+  Future<String> translateText(String text) async {
+    if (text.trim().isEmpty) {
+      return text;
+    }
+    else {
+      return _translatorRepository.translate(
         path: path,
           text: text,
           responsePattern: _responsePattern,
@@ -57,4 +61,6 @@ class UniversalTranslatorController {
           method: _method,
           bodyPattern: _bodyPattern,
           cacheDuration: _cacheDuration);
+    }
+  }  
 }

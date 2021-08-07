@@ -95,4 +95,4 @@ This package works with cache data [dio_http_cache](https://pub.dev/packages/dio
 
 ## Issues
 
-Please if you see any issues, bugs, or feature requests, send to me in: [GitHub issue](https://github.com/JulioCGMC/universal_translator/issues).
+Please if you see any issues, bugs, or feature requests, send to me in: [GitHub issue](https://github.com/JulioCGMC/universal_translator/issues) or send a direct email in case of urgency.

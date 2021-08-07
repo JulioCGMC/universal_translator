@@ -6,7 +6,15 @@ extension TranslateText on Text {
   ///
   /// If the [placeholder] arguments is null then it will show three dots.
   Widget translate([String placeholder]) {
-    String data = this.data;
+    String data;
+    String splitKeyWord;
+    if (this.textSpan != null) {
+      splitKeyWord = "|_|";
+      data = getTextsFromSpan(this.textSpan).join(splitKeyWord);
+    }
+    else {
+      data = this.data;
+    }
     return FutureBuilder<String>(
         future: UniversalTranslatorController().translateText(data ?? ""),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -14,7 +22,22 @@ extension TranslateText on Text {
           if (snapshot.hasData) {
             response = snapshot.data ?? this.data;
           }
-          return Text(response,
+          if (this.textSpan == null || !snapshot.hasData) return Text(response,
+              key: this.key,
+              locale: this.locale,
+              maxLines: this.maxLines,
+              overflow: this.overflow,
+              semanticsLabel: this.semanticsLabel,
+              softWrap: this.softWrap,
+              strutStyle: this.strutStyle,
+              style: this.style,
+              textAlign: this.textAlign,
+              textDirection: this.textDirection,
+              textHeightBehavior: this.textHeightBehavior,
+              textScaleFactor: this.textScaleFactor,
+              textWidthBasis: this.textWidthBasis);
+          else return Text.rich(
+              getSpansFromTexts(response.split(splitKeyWord), this.textSpan),
               key: this.key,
               locale: this.locale,
               maxLines: this.maxLines,

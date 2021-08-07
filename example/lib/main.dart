@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String path = "https://nlp-translation.p.rapidapi.com/v1/translate";
-    Map<String,dynamic> headers = { "x-rapidapi-key": "MY_API_KEY" };
+    Map<String,dynamic> headers = { "x-rapidapi-key": "90574d3420msh4289568a735293ep1b5cfdjsndb64f50e1a4f" };
 
     String responsePattern(Response response) {
       if (response.statusCode == 200 && response.data['status'] == 200) {
@@ -77,8 +77,36 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 20),
             Text("Original: Este texto mostra um placeholder diferente", 
               textAlign: TextAlign.center),
-            Text("Este texto mostra um placeholder diferente", 
-              textAlign: TextAlign.center).translate("Place to Holder")
+            Text.rich(
+              TextSpan(
+                text: "primeiro ",
+                children: [
+                  TextSpan(
+                    text: "primeiro.primeiro ",
+                    children: [
+                      TextSpan(
+                        text: "primeiro.primeiro.primeiro ",
+                        children: [
+                          TextSpan(
+                            text: "primeiro.primeiro.primeiro.primeiro ",
+                          ),
+                        ]
+                      ),
+                      TextSpan(text: "primeiro.primeiro.segundo ")
+                    ]
+                  ),
+                  TextSpan(
+                    text: "primeiro.segundo ",
+                    children: [
+                      TextSpan(text: "primeiro.segundo.primeiro "),
+                      TextSpan(text: "primeiro.segundo.segundo "),
+                      TextSpan(text: "primeiro.segundo.terceiro ")
+                    ]
+                  )
+                ]
+              ), 
+              textAlign: TextAlign.center
+            ).translate("Place to Holder")
           ]
         ),
       ),
