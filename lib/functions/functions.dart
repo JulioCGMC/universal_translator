@@ -27,6 +27,7 @@ TextSpan getSpansFromTexts(List<String> texts, InlineSpan original) {
         children.add(getSpansFromTexts(texts, child));
       });
     }
+    children.removeWhere((e) => e == null);
     span = TextSpan(
       text: text,
       children: children,

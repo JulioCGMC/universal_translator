@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String path = "https://nlp-translation.p.rapidapi.com/v1/translate";
-    Map<String,dynamic> headers = { "x-rapidapi-key": "90574d3420msh4289568a735293ep1b5cfdjsndb64f50e1a4f" };
+    Map<String,dynamic> headers = { "x-rapidapi-key": "MY_API_KEY" };
 
     String responsePattern(Response response) {
       if (response.statusCode == 200 && response.data['status'] == 200) {
