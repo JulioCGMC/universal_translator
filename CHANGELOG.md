@@ -1,4 +1,12 @@
-## [1.0.4] - Change placeholder management
+## [1.0.8] - Add forceRefresh option
+
+* Add forceRefresh option
+
+## [1.0.7] - Bug fix
+
+* splitKeyWord null
+
+## [1.0.5] - Change placeholder management
 
 * Change placeholder management
 

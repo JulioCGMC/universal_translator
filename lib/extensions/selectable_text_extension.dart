@@ -19,8 +19,8 @@ extension TranslateSelectableText on SelectableText {
     return FutureBuilder<String>(
         future: UniversalTranslatorController().translateText(data ?? ""),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          String response = (usePlaceholder ? placeholder 
-            : this.data).replaceAll(splitKeyWord, "");
+          String response = (usePlaceholder ? placeholder : this.data 
+            ?? placeholder ?? "").replaceAll(splitKeyWord ?? "", "");
           if (snapshot.hasData) {
             response = snapshot.data ?? this.data;
           }

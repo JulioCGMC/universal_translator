@@ -57,8 +57,9 @@ class MyApp extends StatelessWidget {
       responsePattern: responsePattern,
       bodyPattern: bodyPattern,
       translateTo: Locale('en'),
-      // automaticDetection: , In case you don't know the user language
+      // automaticDetection: true, // In case you don't know the user language
       cacheDuration: Duration(days: 13),
+      // forceRefresh: true, // to ignore the cache data
       builder: () => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

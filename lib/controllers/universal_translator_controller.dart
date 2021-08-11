@@ -10,6 +10,7 @@ class UniversalTranslatorController {
   HttpMethod _method;
   bool _automaticDetection;
   Locale _translateTo;
+  bool _forceRefresh;
   Duration _cacheDuration;
 
   final UniversalTranslatorRepository _translatorRepository 
@@ -25,6 +26,7 @@ class UniversalTranslatorController {
       {bool automaticDetection,
       Map<String, dynamic> headers,
       Locale translateTo,
+      @required bool forceRefresh,
       @required Duration cacheDuration, @required HttpMethod method}) {
     _instance = UniversalTranslatorController._()
       ..path = path
@@ -32,6 +34,7 @@ class UniversalTranslatorController {
       .._headers = headers
       .._bodyPattern = bodyPattern
       .._automaticDetection = automaticDetection
+      .._forceRefresh = forceRefresh
       .._cacheDuration = cacheDuration
       .._translateTo = translateTo
       .._method = method;
@@ -60,6 +63,7 @@ class UniversalTranslatorController {
           headers: _headers,
           method: _method,
           bodyPattern: _bodyPattern,
+          forceRefresh: _forceRefresh,
           cacheDuration: _cacheDuration);
     }
   }  

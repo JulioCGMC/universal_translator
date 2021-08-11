@@ -16,6 +16,9 @@ class UniversalTranslatorInit extends StatelessWidget {
   /// The duration of the Translate Api cache
   final Duration cacheDuration;
 
+  /// Forces the connection to refresh and erases the cache data
+  final bool forceRefresh;
+
   /// Turn this `true` in case you don't know the `target` device language.
   final bool automaticDetection;
 
@@ -40,6 +43,7 @@ class UniversalTranslatorInit extends StatelessWidget {
       this.automaticDetection,
       this.translateTo,
       this.cacheDuration = const Duration(days: 7),
+      this.forceRefresh = false,
       this.method = HttpMethod.post})
       : assert(automaticDetection == true || translateTo != null,
             'Please select a language to translate');
@@ -51,6 +55,7 @@ class UniversalTranslatorInit extends StatelessWidget {
         translateTo: translateTo,
         automaticDetection: automaticDetection,
         cacheDuration: cacheDuration,
+        forceRefresh: forceRefresh,
         method: method);
     return builder();
   }

@@ -15,13 +15,14 @@ class UniversalTranslatorRepository {
       @required Function(String, Locale) bodyPattern,
       @required Map<String, dynamic> headers,
       @required Locale target,
+      @required bool forceRefresh,
       @required Duration cacheDuration,
       @required String text
     }) async {
     try {
       Response response;
       Map<String, dynamic> body = bodyPattern(text, target);
-      Options _head = buildCacheOptions(cacheDuration);
+      Options _head = buildCacheOptions(cacheDuration, forceRefresh: forceRefresh);
       _head.headers = headers;
       
       switch (method) {
