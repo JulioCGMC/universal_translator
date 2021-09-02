@@ -1,3 +1,7 @@
+## [1.0.11] - Bug fix
+
+* null return bug
+
 ## [1.0.8] - Add forceRefresh option
 
 * Add forceRefresh option
