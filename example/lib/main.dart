@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     String path = "https://nlp-translation.p.rapidapi.com/v1/translate";
     Map<String,dynamic> headers = { "x-rapidapi-key": "MY_API_KEY" };
 
-    String responsePattern(Response response) {
+    String? responsePattern(Response response) {
       if (response.statusCode == 200 && response.data['status'] == 200) {
         dynamic data = response.data;
         return data["translated_text"][data["to"]];
@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

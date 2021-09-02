@@ -1,33 +1,33 @@
 part of universal_translator;
 
 class UniversalTranslatorController {
-  static UniversalTranslatorController _instance;
-  Locale _deviceLocation;
-  String path;
-  Map<String,dynamic> Function(String, Locale) _bodyPattern;
-  String Function(Response) _responsePattern;
-  Map<String, dynamic> _headers;
-  HttpMethod _method;
-  bool _automaticDetection;
-  Locale _translateTo;
-  bool _forceRefresh;
-  Duration _cacheDuration;
+  static UniversalTranslatorController? _instance;
+  late Locale _deviceLocation;
+  late String path;
+  late Map<String,dynamic> Function(String, Locale) _bodyPattern;
+  late String? Function(Response) _responsePattern;
+  Map<String, dynamic>? _headers;
+  late HttpMethod _method;
+  bool? _automaticDetection;
+  Locale? _translateTo;
+  late bool _forceRefresh;
+  late Duration _cacheDuration;
 
   final UniversalTranslatorRepository _translatorRepository 
     = UniversalTranslatorRepository();
 
   UniversalTranslatorController._();
   factory UniversalTranslatorController() {
-    return _instance;
+    return _instance ?? UniversalTranslatorController();
   }
 
-  static void init(String path, String Function(Response) responsePattern,
+  static void init(String path, String? Function(Response) responsePattern,
     Map<String,dynamic> Function(String, Locale) bodyPattern,
-      {bool automaticDetection,
-      Map<String, dynamic> headers,
-      Locale translateTo,
-      @required bool forceRefresh,
-      @required Duration cacheDuration, @required HttpMethod method}) {
+      {bool? automaticDetection,
+      Map<String, dynamic>? headers,
+      Locale? translateTo,
+      required bool forceRefresh,
+      required Duration cacheDuration, required HttpMethod method}) {
     _instance = UniversalTranslatorController._()
       ..path = path
       .._responsePattern = responsePattern
@@ -39,18 +39,18 @@ class UniversalTranslatorController {
       .._translateTo = translateTo
       .._method = method;
     var window = WidgetsBinding.instance?.window ?? ui.window;
-    _instance._deviceLocation = window.locale;
+    _instance!._deviceLocation = window.locale;
   }
 
   Locale get translateTo {
-    if (_translateTo != null) return _translateTo;
+    if (_translateTo != null) return _translateTo!;
     if (_automaticDetection == true) {
       return _deviceLocation;
     }
     return Locale("en");
   }
 
-  Future<String> translateText(String text) async {
+  Future<String?> translateText(String text) async {
     if (text.trim().isEmpty) {
       return text;
     }
@@ -60,7 +60,7 @@ class UniversalTranslatorController {
           text: text,
           responsePattern: _responsePattern,
           target: translateTo,
-          headers: _headers,
+          headers: _headers ?? {},
           method: _method,
           bodyPattern: _bodyPattern,
           forceRefresh: _forceRefresh,

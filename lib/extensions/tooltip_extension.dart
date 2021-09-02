@@ -8,9 +8,9 @@ extension TranslateTooltip on Tooltip {
   /// If the [placeholder] arguments is null then it will show three dots.
   Widget translate([bool usePlaceholder = false, String placeholder = "..."]) {
     String data = this.message;
-    return FutureBuilder<String>(
+    return FutureBuilder<String?>(
         future: UniversalTranslatorController().translateText(data),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           String response = (usePlaceholder ? placeholder : this.message);
           if (snapshot.hasData) {
             response = snapshot.data ?? this.message;

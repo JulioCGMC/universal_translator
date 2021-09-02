@@ -1,15 +1,15 @@
 name: universal_translator
 description: A extension to native flutter widgets witch allows the widget to translate the text any rest API yout want, be it Rakuten, Google Translator or any other.
-version: 1.0.11
+version: 1.1.0
 homepage: https://github.com/JulioCGMC/universal_translator
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
-  dio: ^3.0.10
-  dio_http_cache: ^0.2.11
+  dio: ^4.0.0
+  dio_http_cache: ^0.3.0
   flutter:
     sdk: flutter
 

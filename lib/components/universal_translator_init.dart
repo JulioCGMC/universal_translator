@@ -5,7 +5,7 @@ class UniversalTranslatorInit extends StatelessWidget {
   final String path;
   
   /// The `header` to make the API access.
-  final Map<String, dynamic> headers;
+  final Map<String, dynamic>? headers;
 
   /// The accepted HTTP method.
   final HttpMethod method;
@@ -20,14 +20,14 @@ class UniversalTranslatorInit extends StatelessWidget {
   final bool forceRefresh;
 
   /// Turn this `true` in case you don't know the `target` device language.
-  final bool automaticDetection;
+  final bool? automaticDetection;
 
   /// The language in which the text should appear
-  final Locale translateTo;
+  final Locale? translateTo;
 
   /// The pattern that will be received from the API, this must be trated and 
   /// returned as a translated `String?` to be used normally
-  final String Function(Response response) responsePattern;
+  final String? Function(Response response) responsePattern;
 
   /// The pattern that will be sended to make the request,
   /// `originalText` in this case is the text that will be translated
@@ -36,9 +36,9 @@ class UniversalTranslatorInit extends StatelessWidget {
   final Map<String,dynamic> Function(String originalText, Locale translateTo) bodyPattern;
 
   const UniversalTranslatorInit(this.path,
-      {@required this.builder,
-      @required this.bodyPattern,
-      @required this.responsePattern,
+      {required this.builder,
+      required this.bodyPattern,
+      required this.responsePattern,
       this.headers,
       this.automaticDetection,
       this.translateTo,

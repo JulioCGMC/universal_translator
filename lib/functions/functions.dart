@@ -3,31 +3,32 @@ part of universal_translator;
 List<String> getTextsFromSpan(InlineSpan textSpan) {
   List<String> list = [];
   if (textSpan is TextSpan && textSpan.text != null) {
-    list.add(textSpan.text);
+    list.add(textSpan.text!);
   }
   if (textSpan is TextSpan && textSpan.children != null) {
-    textSpan.children.forEach((e) {
+    textSpan.children!.forEach((e) {
       list.addAll(getTextsFromSpan(e));
     });
   }
   return list;
 }
 
-TextSpan getSpansFromTexts(List<String> texts, InlineSpan original) {
-  TextSpan span;
+TextSpan? getSpansFromTexts(List<String> texts, InlineSpan original) {
+  TextSpan? span;
   if (texts.length > 0 && original is TextSpan) {
-    String text;
+    String? text;
     if (original.text != null) {
       text = "${texts.first}";
       texts.removeAt(0);
     }
     List<InlineSpan> children = [];
     if (original.children != null) {
-      original.children.forEach((child) {
-        children.add(getSpansFromTexts(texts, child));
+      original.children!.forEach((child) {
+        if (getSpansFromTexts(texts, child) != null) {
+          children.add(getSpansFromTexts(texts, child)!);
+        }
       });
     }
-    children.removeWhere((e) => e == null);
     span = TextSpan(
       text: text,
       children: children,

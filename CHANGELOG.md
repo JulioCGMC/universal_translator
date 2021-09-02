@@ -1,3 +1,7 @@
+## [1.1.0] - Update to Flutter 2 (null-safety)
+
+* null-safety migration
+
 ## [1.0.11] - Bug fix
 
 * null return bug

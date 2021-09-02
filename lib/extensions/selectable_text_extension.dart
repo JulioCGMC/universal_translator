@@ -8,31 +8,31 @@ extension TranslateSelectableText on SelectableText {
   /// If the [placeholder] arguments is null then it will show three dots.
   Widget translate([bool usePlaceholder = false, String placeholder = "..."]) {
     String data;
-    String splitKeyWord;
+    String? splitKeyWord;
     if (this.textSpan != null) {
       splitKeyWord = "(}[";
-      data = getTextsFromSpan(this.textSpan).join(splitKeyWord);
+      data = getTextsFromSpan(this.textSpan!).join(splitKeyWord);
     }
     else {
-      data = this.data;
+      data = this.data ?? "";
     }
-    return FutureBuilder<String>(
-        future: UniversalTranslatorController().translateText(data ?? ""),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+    return FutureBuilder<String?>(
+        future: UniversalTranslatorController().translateText(data),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           String response;
           if (usePlaceholder) {
             response = placeholder;
           }
           else if (this.textSpan != null) {
-            response = getTextsFromSpan(this.textSpan).join("");
+            response = getTextsFromSpan(this.textSpan!).join("");
           }
           else {
             response = this.data ?? "";
           }
           if (snapshot.hasData) {
-            if (snapshot.data != null && snapshot.data.isNotEmpty 
+            if (snapshot.data != null && snapshot.data!.isNotEmpty 
             && snapshot.data != "null") {
-              response = snapshot.data;  
+              response = snapshot.data!;  
             }
           }
           if (this.textSpan == null || !snapshot.hasData) return SelectableText(
@@ -61,7 +61,7 @@ extension TranslateSelectableText on SelectableText {
             textWidthBasis: this.textWidthBasis
           );
           else return SelectableText.rich(
-            getSpansFromTexts(response.split(splitKeyWord), this.textSpan),
+            getSpansFromTexts(response.split(splitKeyWord!), this.textSpan!)!,
             key: this.key,
             focusNode: this.focusNode,
             style: this.style,

@@ -8,16 +8,16 @@ class UniversalTranslatorRepository {
     _dio..interceptors.add(DioCacheManager(CacheConfig()).interceptor);
   }
 
-  Future<String> translate(
-      {@required String path,
-      @required String Function(Response) responsePattern,
-      @required HttpMethod method,
-      @required Function(String, Locale) bodyPattern,
-      @required Map<String, dynamic> headers,
-      @required Locale target,
-      @required bool forceRefresh,
-      @required Duration cacheDuration,
-      @required String text
+  Future<String?> translate(
+      {required String path,
+      required String? Function(Response) responsePattern,
+      required HttpMethod method,
+      required Function(String, Locale) bodyPattern,
+      required Map<String, dynamic> headers,
+      required Locale target,
+      required bool forceRefresh,
+      required Duration cacheDuration,
+      required String text
     }) async {
     try {
       Response response;
