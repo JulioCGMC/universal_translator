@@ -1,3 +1,5 @@
+## [1.1.1] - Fix tooltip bug
+
 ## [1.1.0] - Update to Flutter 2 (null-safety)
 
 * null-safety migration
